@@ -8,12 +8,12 @@ input <- function(inputfile) {
   rownames(parameters) <- parameters[,1]
   
   metabolime <- read.csv(toString(parameters["samples",2]), header = F)
-  metabolime <- as.data.frame(t(metabolime))
 
   obs_names=as.matrix(read.table(toString(parameters["categories", 2])))
-  var_ID=as.matrix(read.table(toString(parameters["observables", 2])))
-
-  colnames(metabolime)=var_ID
+  var_ID<<-as.matrix(read.table(toString(parameters["observables", 2])))
+  #colnames(metabolime) <- obs_names
+  rownames(metabolime) <- var_ID
+  metabolime <- as.data.frame(t(metabolime))
   metabolime$obs_names<-as.factor(obs_names)
 
 
@@ -33,7 +33,7 @@ input <- function(inputfile) {
   }
 
   metabolime=metabolime[,-ind_total]
-
+  #print(metabolime)
   testers = read.delim(toString(parameters["targets", 2]), header=F, sep='\n', as.is=T)
   testindex=c()
   for (i in 1:length(testers[,1])) {
@@ -41,23 +41,35 @@ input <- function(inputfile) {
   }
   test = metabolime[testindex,] 
   X <<- subset(test,select = -obs_names)
+  #print(X)
   Y <<- as.character(test$obs_names)
 }
 
 run <- function() {
    plsda.metabolite <<- plsda(X, Y, ncomp = 3)
+   #print(plsda.metabolite)
    my_pls1 <<- plsDA(X, Y, autosel=FALSE, comps=2)
-
+   #print(levels(my_pls1$classification))
    VIP <<- names(which(my_pls1$VIP[,2]>1))
 }
 
 output <- function(outputfile) {
    write.csv(VIP, paste(outputfile, ".VIP.csv", sep=""))
-   write.csv(my_pls1$functions, paste(outputfile, ".functions.csv", sep=""))
-   write.csv(my_pls1$scores, paste(outputfile, ".scores.csv", sep=""))
+   x <- my_pls1$functions
+   #print(nrow(x))
+   #print(length(c("INTERCEPT", var_ID)))
+   rownames(x) <- c("INTERCEPT", colnames(X))
+   colnames(x) <- levels(my_pls1$classification)
+   write.csv(x, paste(outputfile, ".functions.csv", sep=""))
+   #print(my_pls1$scores)
+   #print(str(my_pls1$scores))
+   y <- my_pls1$scores
+   colnames(y) <- levels(my_pls1$classification)
+   write.csv(y, paste(outputfile, ".scores.csv", sep=""))
+   #write.csv(my_pls1$scores, paste(outputfile, ".scores.csv", sep=""))
 
-   plotIndiv(plsda.metabolite, ind.names = F,
-          add.legend =TRUE, plot.ellipse = TRUE,
-          ellipse.level = 0.5, blocks = "lipid", main = 'PLSDA',
-          plot.star = TRUE, plot.centroid = TRUE,style='3d')
+  # plotIndiv(plsda.metabolite, ind.names = F,
+  #        add.legend =TRUE, plot.ellipse = TRUE,
+  #        ellipse.level = 0.5, blocks = "lipid", main = 'PLSDA',
+  #        plot.star = TRUE, plot.centroid = TRUE,style='3d')
 }
