@@ -2,7 +2,8 @@
 # Language: R
 # Input: TXT (key, value pairs)
 # Output: Prefix
-# Tested with: PluMA 1.0, R 3.2.5
+# Tested with: PluMA 1.1, R 4.0.0
+# Dependency: mixOmics_6.12.1, RCurl_1.98.1.2, bitops_1.0.6, DiscriMiner_0.1.29
 
 PluMA plugin to run Partial Least Squares Discriminant Analysis (PLS-DA, Stahle and Wold 1987)
 to determine the degree of separation between dataset(s), given values of observables in each set.
