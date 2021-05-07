@@ -1,4 +1,4 @@
-samples	plugins/PLSDA/example/metabolime.csv
-categories	plugins/PLSDA/example/obs_names.txt
-observables	plugins/PLSDA/example/var_ID.txt
-targets	plugins/PLSDA/example/testsets.txt
+samples	metabolime.csv
+categories	obs_names.txt
+observables	var_ID.txt
+targets	testsets.txt

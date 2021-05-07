@@ -1,2 +1,2 @@
 Prefix plugins/PLSDA/example/
-Plugin PLSDA inputfile parameters.txt outputfile output
+Plugin PLSDA inputfile parameters.txt outputfile output.plot.csv

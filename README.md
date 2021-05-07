@@ -1,7 +1,7 @@
 # PLSDA
 # Language: R
 # Input: TXT (key, value pairs)
-# Output: Prefix
+# Output: CSV
 # Tested with: PluMA 1.1, R 4.0.0
 # Dependency: mixOmics_6.12.1, RCurl_1.98.1.2, bitops_1.0.6, DiscriMiner_0.1.29
 
@@ -17,9 +17,4 @@ categories  TXT file containing sample categories (one per sample)
 observables TXT file containing the name of each observable (one per observables)
 targets     Categories of observables on which PLS-DA should be run
 
-For output, the plugin accepts a "prefix" and will generate four output files:
-1. (prefix).VIP.csv -> Most significant observables in the differentiation
-2. (prefix).functions.csv -> Discriminant functions, in tabular format
-3. (prefix).scores.csv -> Discriminant scores, for each sample
-4. Rplots.pdf -> PLSDA analysis, in visual form
-
+A plot will be produced, and in addition a CSV file of the (X, Y) coordinate values corresponding to principal coordinates one and two for every sample will be generated.

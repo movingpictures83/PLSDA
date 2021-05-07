@@ -77,8 +77,8 @@ output <- function(outputfile) {
    #colnames(y) <- levels(my_pls1$classification)
    #write.csv(y, paste(outputfile, ".scores.csv", sep=""))
    #write.csv(my_pls1$scores, paste(outputfile, ".scores.csv", sep=""))
-
-   plotIndiv(plsda.metabolite, ellipse=TRUE, legend=TRUE)
+   y <- plotIndiv(plsda.metabolite, ellipse=TRUE, legend=TRUE)
+   write.csv(y$df, outputfile)
    perf.plsda <- perf(plsda.metabolite, validation="Mfold", folds=5, progressBar=FALSE, auc=TRUE, nrepeat=10)
    plot(perf.plsda, col=color.mixo(1:3), sd=TRUE, ylim=c(0,1), legend.position="horizontal")
   #plotIndiv(plsda.metabolite, ind.names = F,
