@@ -20,8 +20,8 @@ input <- function(inputfile) {
   obs_names=as.matrix(read.table(paste(pfix, toString(parameters["categories", 2]), sep="")))
   var_ID<<-as.matrix(read.table(paste(pfix, toString(parameters["observables", 2]), sep="")))
   #colnames(metabolime) <- obs_names
-  #print(nrow(metabolime))
-  #print(nrow(var_ID))
+  print(nrow(metabolime))
+  print(nrow(var_ID))
   rownames(metabolime) <- var_ID
   metabolime <- as.data.frame(t(metabolime))
   metabolime$obs_names<-as.factor(obs_names)
